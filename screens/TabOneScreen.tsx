@@ -7,16 +7,17 @@ import { Text, View } from "../components/Themed";
 import CounterTest from "./Counter";
 
 export default function TabOneScreen() {
+  const [toggle, setToggle] = React.useState(false);
+
+  const onUpdated = React.useCallback((increment) => {
+    console.log("Increment", increment);
+    setToggle(!toggle);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <CounterTest />
+      <Text>Toggle: {toggle ? "true" : "false"}</Text>
+      <CounterTest onUpdated={onUpdated} />
     </View>
   );
 }
