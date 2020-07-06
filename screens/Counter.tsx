@@ -71,17 +71,16 @@ const Counter = ({ onUpdated }: CounterProps) => {
   //   }
   // }, [text]);
 
-  const incrementCountFunction = () => {
-    dispatch(actions.incrementCounter());
-
-    if (onUpdated) {
-      onUpdated(true);
-    }
-    currentCount.current++;
-    console.log(currentCount.current);
-  };
-
   const incrementCount = useMemo(() => {
+    const incrementCountFunction = () => {
+      dispatch(actions.incrementCounter());
+
+      if (onUpdated) {
+        onUpdated(true);
+      }
+      currentCount.current++;
+      console.log(currentCount.current);
+    };
     return incrementCountFunction;
   }, [onUpdated]);
 
@@ -91,7 +90,7 @@ const Counter = ({ onUpdated }: CounterProps) => {
     if (onUpdated) {
       onUpdated(false);
     }
-    currentCount.current++;
+    currentCount.current--;
   }, [onUpdated]);
 
   const updateText = React.useCallback((text) => {
@@ -129,9 +128,6 @@ const Counter = ({ onUpdated }: CounterProps) => {
   );
 };
 
-// const StyledCounter = styled(Counter)`
-// `;
-
 const styles = StyleSheet.create({
   mainView: {
     width: "100%",
@@ -147,4 +143,4 @@ const styles = StyleSheet.create({
 
 export const INCREMENT = "INCREMENT";
 
-export default Counter;
+export default React.memo(Counter);

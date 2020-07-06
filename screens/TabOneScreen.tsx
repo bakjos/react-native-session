@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Button } from "react-native";
 
 import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
@@ -7,17 +7,20 @@ import { Text, View } from "../components/Themed";
 import CounterTest from "./Counter";
 
 export default function TabOneScreen() {
-  const [toggle, setToggle] = React.useState(false);
+  const [toggle, setToggle] = React.useState<boolean>(false);
 
-  const onUpdated = React.useCallback((increment) => {
-    console.log("Increment", increment);
-    setToggle(!toggle);
-  }, []);
+  // const onUpdated = () => {
+  //   setToggle((toggle) => !toggle);
+  // };
+
+  const onUpdated = React.useCallback(() => {
+    setToggle((toggle) => !toggle);
+  }, [setToggle]);
 
   return (
     <View style={styles.container}>
-      <Text>Toggle: {toggle ? "true" : "false"}</Text>
-      <CounterTest onUpdated={onUpdated} />
+      <Text>Toggle: {toggle ? "True" : "False"}</Text>
+      <CounterTest onUpdated={onUpdated}></CounterTest>
     </View>
   );
 }
