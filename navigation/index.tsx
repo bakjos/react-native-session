@@ -4,10 +4,12 @@ import {
   DarkTheme,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+//import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import * as React from "react";
-import { ColorSchemeName } from "react-native";
+import { ColorSchemeName, Animated } from "react-native";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
+import Scrollable from "../screens/Scrollable";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
@@ -31,6 +33,7 @@ export default function Navigation({
 
 // A root stack navigator is often used for displaying modals on top of all other content
 // Read more here: https://reactnavigation.org/docs/modal
+//const Stack = createStackNavigator<RootStackParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
@@ -41,6 +44,37 @@ function RootNavigator() {
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
+      />
+      <Stack.Screen
+        name="Scrollable"
+        component={Scrollable}
+        options={{
+          headerShown: true,
+          headerBackTitle: "Back",
+          title: "Scrollable Screen",
+          cardStyleInterpolator: ({ current }) => {
+            return {
+              cardStyle: {
+                opacity: current.progress,
+              },
+            };
+          },
+
+          transitionSpec: {
+            open: {
+              animation: "timing",
+              config: {
+                duration: 800,
+              },
+            },
+            close: {
+              animation: "timing",
+              config: {
+                duration: 800,
+              },
+            },
+          },
+        }}
       />
     </Stack.Navigator>
   );

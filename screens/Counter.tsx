@@ -9,6 +9,7 @@ import React, {
 import { View, TextInput, StyleSheet, TextInputProps } from "react-native";
 import { Text } from "../components/Themed";
 import Button from "../components/Button";
+import StyledInputText from "../components/StyledInputText";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions";
 import { CounterState } from "../types/state";
@@ -35,22 +36,6 @@ const StyledText = styled(Text)`
   font-size: 20px;
   opacity: ${({ visible = true }: { visible?: boolean }) => (visible ? 1 : 0)};
   margin: 20px 30px;
-`;
-
-type StyledInputTextProps = TextInputProps & {
-  dark?: boolean;
-};
-
-const StyledInputText = styled(TextInput)`
-  height: 40px;
-  border-color: ${({ dark }: StyledInputTextProps) =>
-    dark ? "white" : "black"};
-  border-width: 2px;
-  color: ${({ dark }: StyledInputTextProps) => (dark ? "white" : "black")};
-  padding: 10px;
-  font-size: 20px;
-  border-radius: 10px;
-  border-style: dashed;
 `;
 
 const Counter = ({ onUpdated }: CounterProps) => {

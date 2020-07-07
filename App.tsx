@@ -8,8 +8,11 @@ import Navigation from "./navigation";
 import StateProvider from "./store";
 import configureStore from "./store";
 import { Provider } from "react-redux";
+import { enableScreens } from "react-native-screens";
 
 const store = configureStore({ count: 0 });
+
+enableScreens();
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
