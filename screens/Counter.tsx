@@ -67,7 +67,7 @@ const Counter = ({ onUpdated }: CounterProps) => {
       console.log(currentCount.current);
     };
     return incrementCountFunction;
-  }, [onUpdated]);
+  }, [dispatch, onUpdated]);
 
   const decrementCount = React.useCallback(() => {
     dispatch(actions.decrementCounter());
@@ -96,19 +96,19 @@ const Counter = ({ onUpdated }: CounterProps) => {
         labelStyle={styles.labelStyle}
         title="+"
         onPress={incrementCount}
-      ></StyleButton>
+      />
       <StyleButton
         labelStyle={styles.labelStyle}
         title="-"
         onPress={decrementCount}
-      ></StyleButton>
+      />
       {/*<Text>{memoizedText}</Text>*/}
       <StyledInputText
         dark={theme === "dark"}
         value={text}
         ref={inputTextRef}
         onChangeText={updateText}
-      ></StyledInputText>
+      />
     </View>
   );
 };

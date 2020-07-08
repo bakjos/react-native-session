@@ -1,41 +1,46 @@
 import React from "react";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  TextInputAndroidProperties,
-} from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
 import Button from "../components/Button";
 import { Text } from "../components/Themed";
 import styled from "styled-components/native";
 import StyledInputText from "../components/StyledInputText";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { CounterState } from "../types/state";
 import * as actions from "../actions";
-import { StateContext } from "../state";
 
-type CounterProps = {
-  onUpdated?: (increment: boolean) => void;
+type CounterStateProps = {
   count?: number;
-  increment: () => void;
-  decrement: () => void;
 };
+
+type CounterActionProps = {
+  increment?: () => void;
+  decrement?: () => void;
+};
+
+type CounterProps = CounterStateProps &
+  CounterActionProps & {
+    onUpdated?: (increment: boolean) => void;
+  };
 
 type CounterClassState = {
   text: string;
 };
 
-const mapStateToProps = (state?: CounterState) => {
+const mapStateToProps = (state: CounterState = {}): CounterStateProps => {
   return {
     count: state?.count || 0,
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    increment: () => dispatch(actions.incrementCounter()),
-    decrement: () => dispatch(actions.decrementCounter()),
-  };
+const mapDispatchToProps = (dispatch: any): CounterActionProps => {
+  return bindActionCreators(
+    {
+      increment: actions.incrementCounter,
+      decrement: actions.decrementCounter,
+    },
+    dispatch
+  );
 };
 
 const StyleButton = styled(Button)`
@@ -55,7 +60,10 @@ const StyledText = styled(Text)`
   margin: 20px 30px;
 `;
 
-//@connect(mapStateToProps, mapDispatchToProps)
+// @connect<CounterStateProps, CounterActionProps, CounterProps, CounterState>(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )
 class CounterClass extends React.PureComponent<
   CounterProps,
   CounterClassState
@@ -63,7 +71,7 @@ class CounterClass extends React.PureComponent<
   inputTextRef: React.RefObject<TextInput>;
   currentCount: number;
 
-  constructor(props: CounterProps) {
+  constructor(props: Readonly<CounterProps>) {
     super(props);
     this.state = { text: "" };
     this.inputTextRef = React.createRef<TextInput>();
@@ -87,7 +95,7 @@ class CounterClass extends React.PureComponent<
   };
 
   incrementCount = () => {
-    this.props.increment();
+    this.props.increment!();
 
     if (this.props.onUpdated) {
       this.props.onUpdated(true);
@@ -96,7 +104,7 @@ class CounterClass extends React.PureComponent<
   };
 
   decrementCount = () => {
-    this.props.decrement();
+    this.props.decrement!();
     if (this.props.onUpdated) {
       this.props.onUpdated(true);
     }

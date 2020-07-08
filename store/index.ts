@@ -17,7 +17,7 @@ export default function configureStore(initialState: CounterState) {
     store = createStore(
       rootReducer,
       initialState,
-      composeEnhancers(applyMiddleware())
+      composeEnhancers(applyMiddleware(createLogger()))
     );
   } else {
     store = createStore(rootReducer, initialState);
