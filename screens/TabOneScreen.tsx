@@ -1,22 +1,37 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Button } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 
-import CounterTest from "./Counter";
+import CounterTest from "./CounterClass";
+
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../types";
+
+type RootNavigationProp = StackNavigationProp<RootStackParamList, "Root">;
 
 export default function TabOneScreen() {
+  const [toggle, setToggle] = React.useState<boolean>(false);
+  const navigation = useNavigation<RootNavigationProp>();
+
+  // const onUpdated = () => {
+  //   setToggle((toggle) => !toggle);
+  // };
+
+  const onUpdated = React.useCallback(() => {
+    setToggle((prevToggle) => !prevToggle);
+  }, [setToggle]);
+
+  const onNextScreen = React.useCallback(() => {
+    navigation.push("Scrollable");
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-      <CounterTest />
+      <Text>Toggle: {toggle ? "True" : "False"}</Text>
+      <CounterTest onUpdated={onUpdated} />
+      <Button title=">" onPress={onNextScreen} />
     </View>
   );
 }

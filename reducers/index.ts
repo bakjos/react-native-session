@@ -6,14 +6,14 @@ import {
 } from "../types/state";
 
 const counterReducer = (
-  state: CounterState | undefined,
+  state: CounterState = {},
   action: CounterAction
 ): CounterState => {
   switch (action.type) {
     case INCREMENT_ACTION:
-      return { ...state, count: (state?.count || 0) + 1 };
+      return { ...state, count: (state.count || 0) + 1 };
     case DECREMENT_ACTION:
-      return { ...state, count: (state?.count || 0) - 1 };
+      return { ...state, count: (state.count || 0) - 1 };
   }
 };
 
