@@ -16,9 +16,9 @@ const CardList = () => {
           data={images}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <Image style={styles.imageStyle} source={{ uri: item }}></Image>
+            <Image style={styles.imageStyle} source={{ uri: item }} />
           )}
-        ></FlatList>
+        />
       </View>
     </ScrollView>
   );

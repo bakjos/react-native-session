@@ -1,7 +1,6 @@
 import * as React from "react";
 import { StyleSheet, Button } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 
 import CounterTest from "./CounterClass";
@@ -31,8 +30,8 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <Text>Toggle: {toggle ? "True" : "False"}</Text>
-      <CounterTest onUpdated={onUpdated}></CounterTest>
-      <Button title=">" onPress={onNextScreen}></Button>
+      <CounterTest onUpdated={onUpdated} />
+      <Button title=">" onPress={onNextScreen} />
     </View>
   );
 }

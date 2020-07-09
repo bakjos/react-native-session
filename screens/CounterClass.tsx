@@ -124,12 +124,12 @@ class CounterClass extends React.PureComponent<
           labelStyle={styles.labelStyle}
           title="+"
           onPress={this.incrementCount}
-        ></StyleButton>
+        />
         <StyleButton
           labelStyle={styles.labelStyle}
           title="-"
           onPress={this.decrementCount}
-        ></StyleButton>
+        />
 
         <StyledInputText
           value={this.state.text}

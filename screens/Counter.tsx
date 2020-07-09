@@ -1,12 +1,5 @@
-import React, {
-  useState,
-  useContext,
-  useRef,
-  useCallback,
-  useMemo,
-  useEffect,
-} from "react";
-import { View, TextInput, StyleSheet, TextInputProps } from "react-native";
+import React, { useState, useRef, useMemo, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
 import { Text } from "../components/Themed";
 import Button from "../components/Button";
 import StyledInputText from "../components/StyledInputText";
@@ -76,10 +69,10 @@ const Counter = ({ onUpdated }: CounterProps) => {
       onUpdated(false);
     }
     currentCount.current--;
-  }, [onUpdated]);
+  }, [dispatch, onUpdated]);
 
-  const updateText = React.useCallback((text) => {
-    setText(text);
+  const updateText = React.useCallback((t: string) => {
+    setText(t);
   }, []);
 
   useEffect(() => {
