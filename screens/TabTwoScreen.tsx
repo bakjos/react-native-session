@@ -14,14 +14,16 @@ import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { useSelector } from "react-redux";
 import { CounterState } from "../types/state";
-import styled from "styled-components/native";
 import Button from "../components/Button";
+import withClassComponent from "../hoc/withClassComponent";
 
 const sleep = (milliseconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
-// const AnimatedButton = Animated.createAnimatedComponent(Button);
+const AnimatedButton = Animated.createAnimatedComponent(
+  withClassComponent(Button)
+);
 
 enum State {
   PLAYING = 0,
@@ -143,25 +145,23 @@ export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{count}</Text>
-      <TouchableOpacity
+
+      <AnimatedButton
         onPress={() => {
           setAnimating((a) => !a);
         }}
-      >
-        <Animated.View
-          style={[
-            styles.box,
-            {
-              opacity: opacity,
-              transform: [
-                {
-                  rotateZ: rotationZ,
-                },
-              ],
-            },
-          ]}
-        />
-      </TouchableOpacity>
+        style={[
+          styles.box,
+          {
+            opacity: opacity,
+            transform: [
+              {
+                rotateZ: rotationZ,
+              },
+            ],
+          },
+        ]}
+      />
 
       <View
         style={styles.separator}

@@ -1,4 +1,5 @@
 import React from "react";
+import { RectButton, RectButtonProperties } from "react-native-gesture-handler";
 
 import {
   ButtonProps,
@@ -8,18 +9,31 @@ import {
   Text,
 } from "react-native";
 
-type ButtonPropsWithStyle = ButtonProps & {
+type ButtonPropsWithStyle = RectButtonProperties & {
   style?: StyleProp<TextStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  title: string;
 };
+
+// class Button extends React.Component<ButtonPropsWithStyle> {
+//   render() {
+//     const { labelStyle, title, style, ...other } = this.props;
+
+//     return (
+//       <RectButton style={style} {...other}>
+//         <Text style={labelStyle}>{title}</Text>
+//       </RectButton>
+//     );
+//   }
+// }
 
 const Button = (props: ButtonPropsWithStyle) => {
   const { labelStyle, title, style, ...other } = props;
 
   return (
-    <TouchableOpacity style={style} {...other}>
+    <RectButton style={style} {...other}>
       <Text style={labelStyle}>{title}</Text>
-    </TouchableOpacity>
+    </RectButton>
   );
 };
 
