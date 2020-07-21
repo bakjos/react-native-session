@@ -12,7 +12,7 @@ import {
 type ButtonPropsWithStyle = RectButtonProperties & {
   style?: StyleProp<TextStyle>;
   labelStyle?: StyleProp<TextStyle>;
-  title: string;
+  title?: string;
 };
 
 // class Button extends React.Component<ButtonPropsWithStyle> {
